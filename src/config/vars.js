@@ -8,7 +8,7 @@ require('dotenv-safe').config({
 
 module.exports = {
   env: process.env.NODE_ENV,
-  port: process.env.APP_PORT,
+  port: process.env.NODE_ENV === 'test' ? process.env.TEST_APP_PORT : process.env.APP_PORT,
   origin: process.env.ORIGIN,
   esConfig: {
     es_host: process.env.NODE_ENV === 'test' ? process.env.TEST_ES_HOST : process.env.AWS_ES_HOST,

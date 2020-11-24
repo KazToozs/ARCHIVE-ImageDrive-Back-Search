@@ -29,4 +29,8 @@ app.use('/', router);
 
 app.set('port', port || 8080);
 
+app.get('/', function(req, res, next) {
+  res.status(200).json({ name: 'backend-search' })
+})
+
 module.exports = app;

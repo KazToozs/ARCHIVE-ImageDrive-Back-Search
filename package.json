@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node main.js",
     "unit-tests": "nyc --reporter=lcov mocha --reporter node_modules/mocha-sonarqube-reporter test/unit.js --reporter-options output=test-report.xml",
     "integration-tests": "nyc mocha --timeout 40000 --exit test/integration.js",
     "sonar": "sonar-scanner"
@@ -33,6 +33,7 @@
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
     "mocha-sonarqube-reporter": "^1.0.2",
-    "sonar-scanner": "^3.1.0"
+    "sonar-scanner": "^3.1.0",
+    "supertest": "^6.0.1"
   }
 }
