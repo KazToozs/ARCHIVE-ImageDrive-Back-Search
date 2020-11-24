@@ -1,0 +1,38 @@
+{
+  "name": "backend-search",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "unit-tests": "nyc --reporter=lcov mocha --reporter node_modules/mocha-sonarqube-reporter test/unit.js --reporter-options output=test-report.xml",
+    "integration-tests": "nyc mocha --timeout 40000 --exit test/integration.js",
+    "sonar": "sonar-scanner"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KazToozs/ImageDrive-Back-Search.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KazToozs/ImageDrive-Back-Search/issues"
+  },
+  "homepage": "https://github.com/KazToozs/ImageDrive-Back-Search#readme",
+  "dependencies": {
+    "aws-sdk": "^2.798.0",
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
+    "elasticsearch": "^16.7.1",
+    "express": "^4.17.1",
+    "helmet": "^4.2.0",
+    "http-aws-es": "^6.0.0",
+    "nyc": "^15.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "mocha-sonarqube-reporter": "^1.0.2",
+    "sonar-scanner": "^3.1.0"
+  }
+}
