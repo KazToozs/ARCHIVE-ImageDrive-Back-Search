@@ -3,10 +3,10 @@
 const AWS = require('aws-sdk');
 const connectionClass = require('http-aws-es');
 const elasticsearch = require('elasticsearch');
-const {esConfig} = require('./vars');
+const {esConfig, env} = require('./vars');
 
 let client;
-if (esConfig.env === 'test') {
+if (env === 'test') {
   const node = `https://${esConfig.es_user}:${esConfig.es_pass}@${esConfig.es_host}:${esConfig.es_port}`
   client = new elasticsearch.Client({ node: node });
 }

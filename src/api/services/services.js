@@ -1,6 +1,6 @@
 const { esClient, index } = require('../../config/esConfig');
 
-exports.search = async (offset, min, max, description, fileType) => {
+exports.ESsearch = async (offset, min, max, description, fileType) => {
     if (isNaN(offset) || offset < 0) {
       offset = 0;
     }
@@ -43,7 +43,6 @@ exports.search = async (offset, min, max, description, fileType) => {
       })
     }
     if (fileType && fileType !== 'undefined') {
-      console.log('wut: '+ fileType)
       request.body.query.bool = {
         ...request.body.query.bool,
         filter: {
@@ -53,7 +52,6 @@ exports.search = async (offset, min, max, description, fileType) => {
         }
       }
     }
-
-    console.log(request)
+    
     return esClient.search(request);
   }

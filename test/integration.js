@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 const testServer = require('./test-server')
-const testES = require('./test-server')
+const testES = require('./config/test-es')
 const fs = require('fs');
 const path = require('path');
 
@@ -8,16 +8,16 @@ describe('POST /upload', function() {
     testServer.useInTest()
     testES.useInTest()
 
-    it('responds with 200 when values found', async function() {
+    it('responds with 200 when values found', async function(done) {
         const api = this.api;
         const client = this.esClient;
-
+        
+        // create values
         const rawdata = fs.readFileSync(path.join(__dirname, './mocks/request-data.json'));
         const result = JSON.parse(rawdata);
         const body = result.flatMap(doc => [{ index: { _index: 'images'}}, doc])
         try {
             const resp = await client.bulk({ refresh: true, body })
-            console.log(resp)
             if (resp.errors) {
                 const erroredDocuments = []
                 // The items array has the same order of the dataset we just indexed.
@@ -39,23 +39,31 @@ describe('POST /upload', function() {
                 })
                 console.log(erroredDocuments)
             }
+            return api
+            .get('/search')
+            .expect(200)
         } catch (err) {
             console.log("Insert error: " + err)
-            return;
+            done()
         }
 
 
-        api
-        .get('/search')
-        .expect(200)
+        
     })
 
-    it('responds with 204 when no values found', async function() {
-        const api = this.api;
+    // it('responds with 204 when no values found', async function() {
+    //     const api = this.api;
 
-        api
-        .get('/search')
-        .expect(204)
-    })
+    //     return api
+    //     .get('/search')
+    //     .expect(204)
+    // })
 
+    // it('responds with 200 using default values if search values are invalid', async function() {
+    //     const api = this.api;
+
+    //     return api
+    //     .get('/search?p=&mn=&mx&d=&t=')
+    //     .expect(200)
+    // })
 })

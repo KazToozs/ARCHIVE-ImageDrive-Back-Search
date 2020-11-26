@@ -11,6 +11,6 @@ exports.useInTest = function() {
         this.api = api
     })
     after(function stopTestServer() {
-       
+       this.testServer.close()
     })
 }

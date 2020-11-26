@@ -13,7 +13,7 @@ module.exports = {
   esConfig: {
     es_host: process.env.NODE_ENV === 'test' ? process.env.TEST_ES_HOST : process.env.AWS_ES_HOST,
     es_user: process.env.NODE_ENV === 'test' ? process.env.TEST_ES_USER : process.env.AWS_ES_USER,
-    es_password: process.env.NODE_ENV === 'test' ? process.env.TEST_ES_PASSWORD : process.env.AWS_ES_PASSWORD,
+    es_pass: process.env.NODE_ENV === 'test' ? process.env.TEST_ES_PASSWORD : process.env.AWS_ES_PASSWORD,
     es_port: process.env.TEST_ES_PORT,
     es_index: process.env.ES_INDEX
   }

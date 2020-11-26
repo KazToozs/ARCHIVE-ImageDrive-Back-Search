@@ -1,2 +1,5 @@
 <testExecutions version="1">
+<file path="test\unit.js">
+<testCase name="services: should set defaults if missing parameters" duration="0"/>
+</file>
 </testExecutions>

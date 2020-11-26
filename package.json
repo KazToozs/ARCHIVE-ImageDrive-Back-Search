@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node main.js",
-    "unit-tests": "nyc --reporter=lcov mocha --reporter node_modules/mocha-sonarqube-reporter test/unit.js --reporter-options output=test-report.xml",
+    "unit-tests": "nyc mocha test/*",
     "integration-tests": "nyc mocha --timeout 40000 --exit test/integration.js",
     "sonar": "sonar-scanner"
   },
