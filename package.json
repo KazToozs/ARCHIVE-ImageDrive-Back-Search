@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node main.js",
-    "unit-tests": "nyc mocha test/*",
+    "unit-tests": "nyc --reporter=lcov --reporter=text mocha --timeout 40000 --exit --reporter=node_modules/mocha-sonarqube-reporter test/unit.js test/integration.js --reporter-options output=test-report.xml",
+    "migrate": "node ./migrations/migration-rds-es.js",
     "integration-tests": "nyc mocha --timeout 40000 --exit test/integration.js",
     "sonar": "sonar-scanner"
   },
@@ -21,12 +22,14 @@
   "homepage": "https://github.com/KazToozs/ImageDrive-Back-Search#readme",
   "dependencies": {
     "aws-sdk": "^2.798.0",
+    "chai-as-promised": "^7.1.1",
     "cors": "^2.8.5",
     "dotenv-safe": "^8.2.0",
     "elasticsearch": "^16.7.1",
     "express": "^4.17.1",
     "helmet": "^4.2.0",
     "http-aws-es": "^6.0.0",
+    "mysql": "^2.18.1",
     "nyc": "^15.1.0"
   },
   "devDependencies": {

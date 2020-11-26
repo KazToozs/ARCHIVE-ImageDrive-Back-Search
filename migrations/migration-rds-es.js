@@ -1,12 +1,19 @@
 require('dotenv').config()
-const dbconfig = require('../src/configs/dbConfig')
-const esconfig = require('../src/configs/esConfig')
-const Services = require('../src/services');
-var fs = require('fs');
+const EsDriver = require('../src/config/esConfig')
+const EsDao = require('../src/api/services/elasticsearch')
+const mysql = require('mysql')
 
 async function migrateRDSToES() {
-    const pool = dbconfig.dbPool;
-
+    const pool = mysql.createPool({
+        host     : process.env.DB_HOST,
+        user     : process.env.DB_USER,
+        password : process.env.DB_PASSWORD,
+        port     : process.env.DB_PORT,
+        database : 'main'
+        });
+    
+    let esDriver = new EsDriver()
+    esDriver.connect()
     /*
       Schema
       id: number = AutoIncrement [PrimaryKey]
@@ -26,13 +33,13 @@ async function migrateRDSToES() {
         con.query('SELECT * FROM main.uploads;', async function (error, result, fields) {
             console.log(result);
             try {
-                let delRes = await esconfig.esClient.indices.delete({ index: 'images' })
+                let delRes = await esDriver.client.indices.delete({ index: 'images' })
                 console.log(JSON.stringify(delRes, null, 4));
             } catch (err) {
                 console.log("Delete error:" + err)
             }
             try {
-                let res = await esconfig.esClient.indices.create({
+                let res = await esDriver.client.indices.create({
                     index: 'images',
                     body: {
                         mappings: {
@@ -53,7 +60,7 @@ async function migrateRDSToES() {
 
             const body = result.flatMap(doc => [{ index: { _index: 'images'}}, doc])
             try {
-                const resp = await esconfig.esClient.bulk({ refresh: true, body })
+                const resp = await esDriver.client.bulk({ refresh: true, body })
                 console.log(resp)
                 if (resp.errors) {
                     const erroredDocuments = []
@@ -82,7 +89,7 @@ async function migrateRDSToES() {
             }
 
             try {
-                const count = await esconfig.esClient.count({ index: 'images' })
+                const count = await esDriver.client.count({ index: 'images' })
                 console.log(count)
             } catch (err) {
                 console.log("Count error: " + err)
@@ -90,7 +97,8 @@ async function migrateRDSToES() {
             }
 
             try {
-                const result = await Services.search(0, 0, 500000, null, null);
+                let esDao = new EsDao(esDriver.client, 'images')
+                const result = await esDao.search(0, 0, 500000, null, null);
                 const data = result.hits.hits
                 
                 // TODO remove log

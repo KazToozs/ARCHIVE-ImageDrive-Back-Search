@@ -1,5 +1,12 @@
 <testExecutions version="1">
 <file path="test\unit.js">
-<testCase name="services: should set defaults if missing parameters" duration="0"/>
+<testCase name="AWS service: should based on credentials" duration="1"/>
+</file>
+<file path="test\integration.js">
+<testCase name="POST /upload: responds with 200 to basic get" duration="8"/>
+<testCase name="POST /upload: responds with 204 when no values found" duration="7"/>
+<testCase name="POST /upload: responds with 200 when values found" duration="2"/>
+<testCase name="POST /upload: responds with 204 if search values are invalid" duration="8"/>
+<testCase name="POST /upload: responds with 200 if search values are valid" duration="4"/>
 </file>
 </testExecutions>
