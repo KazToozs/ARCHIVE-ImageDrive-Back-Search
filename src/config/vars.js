@@ -16,5 +16,12 @@ module.exports = {
     es_pass: process.env.NODE_ENV === 'test' ? process.env.TEST_ES_PASSWORD : process.env.AWS_ES_PASSWORD,
     es_port: process.env.TEST_ES_PORT,
     es_index: process.env.ES_INDEX
+  },
+  dbConfig: {
+    db_host: process.env.DB_HOST,
+    db_user: process.env.DB_USER,
+    db_password: process.env.DB_PASSWORD,
+    db_port: process.env.DB_PORT,
+    db_db: process.env.DB_DB,
   }
 };

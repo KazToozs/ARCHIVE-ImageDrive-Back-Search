@@ -1,6 +1,4 @@
 /* eslint-env mocha */
-const testServer = require('./test-server')
-const testES = require('./config/test-es')
 const fs = require('fs');
 const path = require('path');
 const EsDriver = require('../src/config/esConfig')

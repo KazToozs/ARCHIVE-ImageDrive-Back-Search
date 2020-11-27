@@ -1,6 +1,6 @@
 const mysql      = require('mysql');
 const util       = require('util');
-const { dbConfig } = require('./vars');
+const { dbConfig } = require('../../src/config/vars');
 
 class DbDriver {
    constructor() {

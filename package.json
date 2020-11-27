@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "initialise": "npm run migrate & npm run start",
+    "migrate": "node ./migrations/migration-rds-es.js",
     "start": "node main.js",
     "unit-tests": "nyc --reporter=lcov --reporter=text mocha --timeout 40000 --exit --reporter=node_modules/mocha-sonarqube-reporter test/unit.js test/integration.js --reporter-options output=test-report.xml",
-    "migrate": "node ./migrations/migration-rds-es.js",
     "integration-tests": "nyc mocha --timeout 40000 --exit test/integration.js",
     "sonar": "sonar-scanner"
   },
