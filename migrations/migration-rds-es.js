@@ -1,4 +1,4 @@
-const { env, esConfig } = require('../src/config/vars');
+const { env, esConfig, dbConfig } = require('../src/config/vars');
 const EsDriver = require('../src/config/esConfig')
 const DbDriver = require('./utils/dbConfig')
 
@@ -18,7 +18,7 @@ async function migrateRDSToES() {
     try {
         // Data pickup from RDS and prep
         await db.connect();
-        let result = await db.query('SELECT * FROM main.uploads;')
+        let result = await db.query(`SELECT * FROM ${dbConfig.db_db}.uploads;`)
         const body = result.flatMap(doc => [{ index: { _index: esConfig.es_index }}, doc])
 
         // ES init
